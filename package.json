@@ -1,0 +1,30 @@
+{
+  "name": "podge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "browserify": "^13.1.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-sass": "^2.3.2",
+    "gulp-uglify": "^2.0.0",
+    "gulp-util": "^3.0.7",
+    "stringify": "^5.1.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "dependencies": {
+    "detectcss": "^1.0.2",
+    "email-validator": "^1.0.4",
+    "jquery": "^3.1.0",
+    "masonry-layout": "^4.1.0",
+    "promise": "^7.1.1",
+    "shuffle-array": "^1.0.0"
+  }
+}

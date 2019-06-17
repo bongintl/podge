@@ -1,0 +1,799 @@
+$tablet-max-portrait: 768px;
+$tablet-max-landscape: 1024px;
+
+$phone-max: 414px;
+
+@mixin desktop {
+     @media ( min-width: $tablet-max-landscape + 1px ) { @content; }
+}
+
+@mixin tablet-landscape {
+	@media ( min-width: $tablet-max-portrait + 1px ) { @content; }
+}
+
+@mixin tablet {
+	@media ( min-width: $phone-max + 1px ) { @content; }
+}
+
+@mixin phone {
+	@media ( max-width: $phone-max )  { @content; }
+}
+
+
+@font-face{
+	src: url(./fonts/Stanley-Regular.otf);
+	font-family: Stanley;
+}
+
+@font-face{
+	src: url(./fonts/Stanley-RegularIta.otf);
+	font-family: Stanley;
+	font-style: italic;
+}
+
+@font-face{
+	src: url(./fonts/Stanley-Bold.otf);
+	font-family: Stanley;
+	font-weight: bold;
+}
+
+@font-face{
+	src: url(./fonts/Stanley-BoldIta.otf);
+	font-family: Stanley;
+	font-weight: bold;
+	font-style: italic;
+}
+
+@font-face{
+	src: url(./fonts/Stanley-Poster.otf);
+	font-family: Stanley;
+	font-weight: 900;
+}
+
+$menu-column: 0%;
+$section-column: (100% - $menu-column) / 4;
+$margin: 5rem;
+$margin-mobile: 1rem;
+$gutter: 2rem;
+$content-margin: $margin + $gutter/2;
+
+$phone-nav-margin: 1.2rem;
+$phone-content-margin-left: 4rem;
+$phone-content-margin-right: .15rem;
+$phone-content-width: calc( 100% - #{$phone-content-margin-left + $phone-content-margin-right } );
+
+$width-1: calc( ( 100% - #{$margin * 2} ) * 0.25 - #{$gutter} );
+$width-2: calc( ( 100% - #{$margin * 2} ) * 0.5 - #{$gutter} );
+$width-3: calc( ( 100% - #{$margin * 2} ) * 0.75 - #{$gutter} );
+$width-4: calc( 100% - #{$margin * 2 + $gutter} );
+
+$intro-fade-duration: 1s;
+$intro-fade-delay: 1s;
+
+$left-0: $margin + $gutter/2;
+$left-1: calc( #{$margin + $gutter / 2} + ( 100% - #{$margin * 2} ) * 0.25 );
+$left-2: calc( #{$margin + $gutter / 2} + ( 100% - #{$margin * 2} ) * 0.5 );
+$left-3: calc( #{$margin + $gutter / 2} + ( 100% - #{$margin * 2} ) * 0.75 );
+
+$indent: 1.5em;
+
+.indent-1 { padding-left: $indent; }
+.indent-2 { padding-left: $indent * 2; }
+
+.pad-bottom-1 { padding-bottom: $indent; }
+.pad-bottom-2 { padding-bottom: $indent * 2; }
+
+*{
+	box-sizing: border-box;
+}
+
+body{
+	margin: 0;
+	line-height: 1.4;
+	@include tablet {
+		font-size: 1.1rem;
+	}
+	font-family: Stanley;
+	background-color: white;
+	&.wait{
+		cursor: wait;
+		pointer-events: none;
+	}
+	background-size: $phone-content-margin-left auto;
+	@include tablet {
+		background-size: auto;
+	}
+	
+}
+
+canvas{
+	position: fixed;
+	z-index: 10;
+	top: 0;
+	left: 0;
+	
+	transition: opacity 1s;
+	
+	&.loading {
+		opacity: 0;
+	}
+	
+}
+
+img {
+	max-width: 100%;	
+}
+
+a{
+	text-decoration: none;
+	color: inherit;
+	border-bottom: 2px solid transparent;
+	transition: border-bottom-color .2s;
+	
+	&:hover{
+		border-bottom: 2px solid black;
+	}
+}
+
+ul{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+p{
+	padding: 0;
+	margin: 0;
+	padding-bottom: 1.5em;
+}
+
+h1{
+	font-size: 2.2rem;
+	padding: 0;
+	margin: 0;
+}
+
+h2{
+	font-size: 1.4rem;
+	padding: 0;
+	margin: 0;
+	line-height: 1.5;
+	font-weight: 900;
+}
+
+h2.address {
+	font-weight: normal;
+}
+
+.nav {
+	
+	position: fixed;
+	font-weight: 900;
+	font-size: 1.15em;
+	z-index: 2000;
+	cursor: pointer;
+	border-bottom: 2px solid rgba(0,0,0,0);
+	
+	opacity: 0;
+	pointer-events: none;
+	
+	.intro-done & {
+		opacity: 1;
+		pointer-events: visible;
+	}
+	
+	@include phone {
+		display: none;
+	}
+	
+	$nav-margin: ($margin + $gutter/2) / 2;
+	
+	&_about{
+		top: $nav-margin;
+		left: calc( #{$margin} + ( 100% - #{$margin * 2} ) * 0.25 );
+		transform: translate(-50%, -50%);
+		transition: opacity $intro-fade-duration .3s;
+	}
+	
+	&_location{
+		top: $nav-margin;
+		left: calc( #{$margin} + ( 100% - #{$margin * 2} ) * 0.75 );
+		transform: translate(-50%, -50%);
+		transition: opacity $intro-fade-duration .1s;
+	}
+	
+	&_menu{
+		left: $nav-margin;
+		top: 50%;
+		transform: translate(-40%, -50%) rotate(-90deg);
+		transition: opacity $intro-fade-duration 1.6s;
+	}
+	
+	&_attendees{
+		right: $nav-margin;
+		top: 50%;
+		transform: translate(40%, -50%) rotate(90deg);
+		transition: opacity $intro-fade-duration 1s;
+	}
+	
+	&_sponsors{
+		bottom: $nav-margin;
+		left: calc( #{$margin} + ( 100% - #{$margin * 2} ) * 0.25 );
+		transform: translate(-50%, 50%) rotate(180deg);
+		transition: opacity $intro-fade-duration .8s;
+	}
+	
+	&_gallery{
+		bottom: $nav-margin;
+		left: calc( #{$margin} + ( 100% - #{$margin * 2} ) * 0.75 );
+		transform: translate(-50%, 50%) rotate(180deg);
+		transition: opacity $intro-fade-duration .7s;
+	}
+	
+	&_active{
+		border-bottom: 2px solid black;
+	}
+	
+}
+
+.intro{
+	
+	position: fixed;
+	top: 50%;
+	left: $phone-nav-margin;
+	right: $phone-nav-margin;
+	transform: translateY(-50%);
+	line-height: 1.2;
+	font-size: 5vh;
+
+	@include tablet{
+		
+		left: $content-margin;
+		right: $content-margin;
+		font-size: 6vw;
+		
+	}
+	
+	.intro-done & {
+		pointer-events: none;
+	}
+	
+	span{
+		transition: opacity $intro-fade-duration;
+		&.off {
+			opacity: 0;
+		}
+	}
+	
+}
+
+section{
+	
+	position: fixed;
+	padding: $gutter/2;
+	background: white;
+	pointer-events: none;
+	margin-bottom: $content-margin;
+	border: 2px solid black;
+	top: $phone-content-margin-left;
+	left: $phone-content-margin-left;
+	width: $phone-content-width;
+	display: none;
+	
+	opacity: 0;
+	transition: opacity $intro-fade-duration 1.5s;
+	
+	.intro-done & {
+		opacity: 1;
+	}
+	
+	@include tablet{
+		padding: $gutter;
+		top: $content-margin;
+		left: $content-margin;
+		width: $width-4;
+	}
+
+	@include tablet-landscape {
+		&.visited {
+			display: block;
+		}
+	}
+	
+	.attendees-on & {
+		display: none;
+	}
+	
+	&.front {
+		background: white;
+		z-index: 1000;
+		position: absolute;
+		pointer-events: visible;
+		display: block;
+	}
+	
+}
+
+.about {
+	
+	h2{
+		padding-bottom: 1rem;
+	}
+	
+	p:last-child{
+		
+		padding-bottom: 2rem;
+		
+	}
+		
+	@include tablet-landscape {
+		
+		h2, p {
+			width: 65%;
+			margin-left: 35%;
+		}
+
+	}
+	
+	@include desktop {
+		
+		width: $width-2;
+		left: $left-0;
+		
+	}
+	
+}
+
+.location{
+	
+	@include tablet-landscape {
+		
+		width: $width-2;
+		left: $left-1;
+		
+	}
+	
+	@include desktop {
+		
+		width: $width-1;
+		
+	}
+	
+}
+
+.menu {
+	
+	p{
+		font-weight: normal;
+	}
+	
+	h2 {
+		font-size: inherit;
+		font-weight: bold;
+	}
+	
+	form {
+		
+		@include tablet-landscape {
+		
+			width: 60%;
+			
+		}
+		
+		.menu-item {
+			width: 100%;
+			overflow: auto;
+			cursor: pointer;
+			
+			p {
+				width: 80%;
+			}
+			
+			p, .radio {
+			  float: left;
+			}
+
+			input[type="radio"] {
+				display: none;
+			}
+			
+			input[type="radio"] + span {
+				float: right;
+				pointer-events: none;
+				content: '';
+			  display:inline-block;
+			  width: 20px;
+			  height: 20px;
+			  border: 1px solid black;
+			  background: white;
+			  vertical-align: middle;
+			  transition: background .2s;
+			}
+			
+			input[type="radio"]:checked + span {
+			  border: 1px solid black;  
+			  background: black;
+			}
+		
+		}
+		
+		.message {
+			display: none;
+			p {
+				font-weight: bold;
+			}
+		}
+		
+		&.success {
+			.submit {
+				display: none;
+			}
+		}
+		
+		&.success .message_success {
+			display: block;
+		}
+		
+		&.blocked .message_blocked {
+			padding-top: 1em;
+			display: block;
+		}
+		
+		&.fail .message_fail {
+			padding-top: 1em;
+			display: block;
+		}
+		
+	}
+		
+	 @include tablet {
+	 	
+	 	width: $width-3;
+	 	left: $left-1;
+	 	
+	 }
+	 
+	 @include desktop {
+	 	
+	 	width: $width-2;
+	 	left: $left-2;
+	 	
+	 }
+	
+}
+
+.attendees {
+	
+
+	
+	h2{
+		font-weight: 900;
+		margin-bottom: -.2rem;
+	}
+	
+	li{
+		padding-bottom: .5rem;
+	}
+	
+	@include tablet {
+		
+		width: $width-3;
+		left: $left-1;
+		
+	}
+	
+	@include tablet-landscape {
+		
+		width: $width-2;
+		left: $left-2;
+		
+	}
+	
+}
+
+.sponsors {
+	a {
+		border-bottom: 0;
+		&:hover {
+			border-bottom: 0;
+		}
+	}
+	
+	div {
+		padding-bottom: 3rem;	
+	}
+	
+	img {
+		max-height: 4rem;
+		padding-bottom: 0.5rem;
+	}
+	
+	h2, p {
+		padding-left: $indent * 2;
+	}
+	
+	@include tablet-landscape{
+		width: $width-3;
+	}
+	
+	@include desktop{
+		width: $width-2;
+	}
+	
+}
+
+.gallery{
+	
+	border: none;
+	padding: 0;
+	pointer-events: none;
+	background: transparent !important;
+	
+	@include tablet {
+		
+		width: calc( 100% - #{$margin * 2} );
+		left: $margin;
+		top: $margin;
+		
+	}
+	
+	&_image {
+		
+		$ratio: 2/3;
+		
+		pointer-events: visible;
+		float: left;
+		border: 2px solid black;
+		margin-bottom: $phone-content-margin-left / 2;
+		background-size: cover;
+		background-position: center;
+		padding-bottom: 100% * $ratio;
+		width: 100%;
+		
+		@include tablet {
+			
+			margin: $gutter/2;
+			
+			&.width-1 {
+				width: calc(50% - #{$gutter} );
+				padding-bottom: 50% * $ratio;
+			}
+			
+			&.width-2, &.width-3 {
+				width: calc(100% - #{$gutter} );
+			}
+	
+		}
+		
+		@include desktop {
+			
+			&.width-1 {
+				width: calc(25% - #{$gutter} );
+				padding-bottom: 25% * $ratio;
+			}
+			
+			&.width-2 {
+				width: calc(50% - #{$gutter} );
+				padding-bottom: 50% * $ratio;
+			}
+			
+			&.width-3 {
+				width: calc(75% - #{$gutter} );
+				padding-bottom: 75% * $ratio;
+			}
+			
+			
+		}
+		
+	}
+	
+}
+
+.letter-comp {
+	
+	position: fixed;
+	background-repeat: no-repeat;
+	pointer-events: none;
+	top: $phone-nav-margin;
+	left: $phone-nav-margin;
+	
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 1s;
+	
+	.intro-done & {
+		opacity: 1;
+	}
+	
+	.attendees-on & {
+		display: none;
+	}
+	
+	width: calc( 100% - #{$phone-nav-margin * 2} );
+	height: calc( 100% - #{$phone-nav-margin * 2} );
+	
+	@include tablet {
+		
+		top: $content-margin;
+		left: $content-margin;
+		width: $width-4;
+		height: $width-4;
+
+	}
+
+	&.pod {
+		background-image: url(./img/pod.svg);
+		// left: $margin + $gutter;
+		// top: $margin + $gutter;
+		// width: $phone-content-width;
+		// width: 50%;
+		// height: 65%;
+		background-size: auto 70%;
+		background-position: top left;
+		transition: opacity $intro-fade-duration .7s;
+		@media (orientation: portrait) {
+			// right: $margin + $gutter;
+			// width: auto;
+			// height: 40%;
+			transform-origin: 0 0;
+			background-size: 70% auto;
+			transform: translateX(100%) rotate(90deg);
+		}
+			
+	}
+	
+	&.ge {
+		background-image: url(./img/ge.svg);
+		// bottom: $margin + $gutter;
+		// right: $margin + $gutter;
+		// width: $phone-content-width;
+		// height: 60%;
+		background-size: auto 63%;
+		background-position: bottom right;
+		transition: opacity $intro-fade-duration;
+		@media screen and (orientation: portrait) {
+			background-size: 35% auto;
+			// height: 40%;
+			// width: 40%;
+			// bottom: $margin + $gutter;
+			// right: auto;
+			// left: $margin + $gutter;
+			background-position: bottom left;
+
+		}
+
+	}
+}
+
+
+
+input, button{
+	font-size: 1em;
+	font-family: inherit;
+	background: transparent;
+	color: black;
+	border: 1px solid black;
+	width: 100%;
+	padding: .5em 1em;
+}
+
+input{
+	margin-bottom: 1rem;
+}
+
+button{
+	text-align: left;
+	text-transform: uppercase;
+	cursor: pointer;
+
+	&:hover {
+		background-color: black;
+		color: white;
+	}
+	
+	&:disabled {
+		color: silver;
+
+		&:hover {
+			background: white;
+			cursor: default;
+		}
+	}
+}
+
+input::placeholder{
+	font-style: italic;
+	color: black;
+}
+
+.mo-menu-button {
+	
+	$size: $phone-content-margin-left - $phone-nav-margin * 2;
+	$offset: $size * .4;
+	
+	display: block;
+	position: fixed;
+	z-index: 3000;
+	top: 0;
+	left: 0;
+	width: $phone-content-margin-left;
+	height: $phone-content-margin-left;
+	
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 1s;
+	
+	.intro-done & {
+		opacity: 1;
+		pointer-events: visible;
+
+	}
+	
+	span, span:before, span:after {
+		width: $size;
+		height: 2px;
+		display: block;
+		position: absolute;
+		background: black;
+	}
+	
+	span:before, span:after{
+		content: '';
+	}
+	
+	span{
+		top: 50%;
+		left: 50%;
+		transform: translate( -50%, -50% );
+		margin-top: -($size / 2 - $offset);
+	}
+	
+	span:before{
+		top: -$offset;
+		margin-top: 1px;
+	}
+	
+	span:after {
+		top: $offset;
+		margin-top: -1px;
+	}
+}
+
+.mo-menu {
+	
+	position: fixed;
+	z-index: 500;
+	width: $phone-content-width;
+	height: $phone-content-width;
+	left: $phone-content-margin-right;
+	top: $phone-content-margin-right;
+	background: white;
+	border: 2px solid black;
+	padding-right: calc( #{ $phone-nav-margin - $phone-content-margin-right } - 2px} );
+	padding-top: calc( #{ $phone-nav-margin - $phone-content-margin-right } - 5px} );;
+	z-index: 2000;
+	transform: translate(-100vw, -100vh);
+	transition: transform .2s;
+	text-align: right;
+	font-size: 2.2rem;
+	text-transform: uppercase;
+	font-weight: 900;
+	
+	a {
+		display: block;
+		line-height: 1.1;
+		border-bottom: none !important;
+	}
+	
+	.menu-open & {
+		transform: none;
+	}
+}
+
+@include tablet {
+	
+	.mo-menu-button, .mo-menu {
+		display: none;
+	}
+	
+}

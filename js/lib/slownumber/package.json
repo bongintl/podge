@@ -1,0 +1,14 @@
+{
+  "name": "bong-slownumber",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "BONG",
+  "license": "ISC",
+  "dependencies": {
+    "bong-raf": "^1.0.0"
+  }
+}

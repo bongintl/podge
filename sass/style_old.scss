@@ -1,0 +1,254 @@
+@mixin breakpoint($point) {
+  @if $point == desktop {
+     @media (min-width: 769px) { @content; }
+  }
+  //  @else if $point == laptop {
+  //    @media (min-width: 64em) { @content ; }
+  // }
+    @else if $point == tablet {
+     @media (min-width: 415px) { @content; }
+  }
+  //  @else if $point == phablet {
+  //    @media (min-width: 37.5em)  { @content ; }
+  // }
+  @else if $point == phone {
+     @media (max-width: 414px)  { @content; }
+
+  }
+}
+
+@font-face{
+	src: url(../fonts/Stanley-Regular.otf);
+	font-family: Stanley;
+}
+
+@font-face{
+	src: url(../fonts/Stanley-RegularIta.otf);
+	font-family: Stanley;
+	font-style: italic;
+}
+
+@font-face{
+	src: url(../fonts/Stanley-Bold.otf);
+	font-family: Stanley;
+	font-weight: bold;
+}
+
+@font-face{
+	src: url(../fonts/Stanley-BoldIta.otf);
+	font-family: Stanley;
+	font-weight: bold;
+	font-style: italic;
+}
+
+@font-face{
+	src: url(../fonts/Stanley-Poster.otf);
+	font-family: Stanley;
+	font-weight: 900;
+}
+
+$menu-column: 10%;
+$section-column: (100% - $menu-column) / 4;
+$margin: 2rem;
+
+*{
+	box-sizing: border-box;
+}
+
+body{
+	margin: 0;
+	font-size: 1.1rem;
+	line-height: 1.5;
+	font-family: Stanley;
+	background-position: center center;
+	background-repeat: repeat;
+	background-size: auto;
+}
+
+canvas{
+	position: fixed;
+	z-index: 10;
+}
+
+ul{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.nav{
+	position: fixed;
+	top: $margin;
+	left: $margin;
+	z-index: 50;
+	font-weight: 900;
+	text-transform: uppercase;
+	li{
+		cursor: pointer;
+		transition: transform 0.2s;
+		&.active{
+			transform: translateX(1rem);
+		}
+	}
+}
+
+section{
+	
+	position: fixed;
+	padding: $margin;
+	display: none;
+	transition: background .2s, color .2s;
+	pointer-events: none;
+	margin-bottom: 5%;
+	border: 2px solid black;
+	&.bg-on{
+		background: white;
+		z-index: 1000;
+		position: absolute;
+		pointer-events: visible;
+	}
+}
+
+p{
+	padding: 0;
+	margin: 0;
+}
+
+h1{
+	font-size: 2.2rem;
+	padding: 0;
+	margin: 0;
+}
+
+h2{
+	font-size: 1.4rem;
+	line-height: 1.2;
+	padding: 0;
+	margin: 0;
+}
+
+.letter{
+	position: fixed;
+	width: $section-column;
+	height: 25%;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	pointer-events: none;
+	&_p{
+		background-image: url(./img/p.svg);
+		left: $menu-column;
+		top: $margin;
+	}
+	&_o{
+		background-image: url(./img/o.svg);
+		left: $menu-column + $section-column * 2;
+		top: 10%;
+	}
+	&_d{
+		background-image: url(./img/d.svg);
+		left: $menu-column + $section-column * 3;
+		top: 30%;
+	}
+	&_g{
+		background-image: url(./img/g.svg);
+		left: $menu-column + $section-column;
+		bottom: $margin;
+	}
+	&_e{
+		background-image: url(./img/e.svg);
+		left: $menu-column;
+		bottom: $margin * 2;
+	}
+}
+
+.about {
+	
+	top: 10%;
+	left: $menu-column;
+	width: $section-column;
+	
+	h2{
+		margin-bottom: 1em;
+	}
+	
+}
+
+.location{
+	top: 4%;
+	left: $menu-column + $section-column;
+	width: $section-column;
+}
+
+.attendees{
+	top: 13%;
+	left: $menu-column + $section-column;
+	width: $section-column;
+	li{
+		padding-bottom: 2rem;
+	}
+	h2{
+		text-transform: uppercase;
+	}
+}
+
+.attendee{
+	&__left-column{
+		width: 30%;
+	}
+	&__right-column{
+		width: 70%;
+	}
+	&__photo{
+		width: 100%;
+		padding-bottom: 100%;
+		
+	}
+}
+
+.menu{
+	top: 5%;
+	left: $menu-column + $section-column * 2;
+	width: $section-column;
+}
+
+.sponsors{
+	top: 8%;
+	left: $menu-column + $section-column * 3;
+	width: $section-column;
+}
+
+.gallery{
+	top: 16%;
+	left: $menu-column + $section-column * 2;
+	width: $section-column * 2;
+	
+	img{
+		width: 100%;
+		margin-bottom: 5rem;
+	}
+}
+
+input, button{
+	font-size: 1em;
+	font-family: inherit;
+	background: transparent;
+	color: black;
+	border: 1px solid black;
+	width: 100%;
+	padding: .5em 1em;
+}
+
+input{
+	margin-bottom: 1rem;
+}
+
+button{
+	text-align: left;
+	text-transform: uppercase;
+}
+
+input::placeholder{
+	font-style: italic;
+	color: black;
+}
